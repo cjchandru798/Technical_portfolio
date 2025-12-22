@@ -1,62 +1,62 @@
-import { useRef } from 'react';
+
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 
 export default function Contact() {
-    const form = useRef<HTMLFormElement>(null);
+
 
     const sendEmail = (e: React.FormEvent) => {
         e.preventDefault();
-        toast.success("Message sent to the server (Simulation)");
+        toast.success("Message sent successfully (Demo)");
     };
 
     return (
-        <motion.section
-            className="section-container flex items-center justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+        <motion.div
+            className="page-transition min-h-[80vh] flex items-center justify-center pt-24"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
         >
-            <div className="w-full max-w-2xl bg-white border border-gray-200 rounded-xl p-8 md:p-12 shadow-sm">
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Initialize Connection</h2>
-                <p className="text-gray-500 mb-8 font-mono text-sm">/api/contact/send-message</p>
+            <div className="w-full max-w-xl">
+                <div className="mb-10 text-center">
+                    <h1 className="text-4xl font-bold text-gray-900 mb-2">Get in Touch</h1>
+                    <p className="text-gray-500">Have a project in mind? Let's build something together.</p>
+                </div>
 
-                <form ref={form} onSubmit={sendEmail} className="space-y-6">
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">Name</label>
+                <form onSubmit={sendEmail} className="space-y-6">
+                    <div className="group">
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Name</label>
                         <input
                             type="text"
+
+                            className="w-full bg-gray-50 border-0 border-b-2 border-gray-200 px-4 py-3 text-gray-900 focus:ring-0 focus:border-black focus:bg-white transition-all duration-300 placeholder:text-gray-300"
                             placeholder="Enter your name"
-                            required
-                            className="w-full bg-gray-50 border border-gray-200 p-3 rounded-md focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-sm placeholder:text-gray-400"
                         />
                     </div>
 
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">Email</label>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Email</label>
                         <input
                             type="email"
+                            className="w-full bg-gray-50 border-0 border-b-2 border-gray-200 px-4 py-3 text-gray-900 focus:ring-0 focus:border-black focus:bg-white transition-all duration-300 placeholder:text-gray-300"
                             placeholder="name@example.com"
-                            required
-                            className="w-full bg-gray-50 border border-gray-200 p-3 rounded-md focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-sm placeholder:text-gray-400"
                         />
                     </div>
 
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">Message</label>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1">Message</label>
                         <textarea
-                            rows={6}
-                            placeholder="Type your message here..."
-                            required
-                            className="w-full bg-gray-50 border border-gray-200 p-3 rounded-md focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-sm resize-none placeholder:text-gray-400"
+                            rows={4}
+                            className="w-full bg-gray-50 border-0 border-b-2 border-gray-200 px-4 py-3 text-gray-900 focus:ring-0 focus:border-black focus:bg-white transition-all duration-300 placeholder:text-gray-300 resize-none"
+                            placeholder="Tell me about your project..."
                         ></textarea>
                     </div>
 
-                    <button className="btn-primary w-full">
-                        Transmit Message
+                    <button className="w-full bg-black text-white py-4 rounded-lg font-bold text-sm tracking-wide hover:bg-gray-800 transform active:scale-[0.98] transition-all duration-200">
+                        SEND MESSAGE
                     </button>
                 </form>
             </div>
-        </motion.section>
+        </motion.div>
     );
 }

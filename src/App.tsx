@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
@@ -27,10 +28,13 @@ function AnimatedRoutes() {
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-white text-gray-900 font-sans">
+      <div className="min-h-screen bg-white text-gray-900 font-sans flex flex-col">
         <Navbar />
         <Toaster position="bottom-right" />
-        <AnimatedRoutes />
+        <main className="flex-grow">
+          <AnimatedRoutes />
+        </main>
+        <Footer />
       </div>
     </Router>
   );

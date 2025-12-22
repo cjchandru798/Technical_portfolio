@@ -1,75 +1,53 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const location = useLocation();
 
-    const menuItems = [
+    const links = [
         { name: 'Home', path: '/' },
         { name: 'About', path: '/about' },
         { name: 'Projects', path: '/projects' },
         { name: 'Skills', path: '/skills' },
-        { name: 'Contact', path: '/contact' },
+        { name: 'Contact', path: '/contact' }
     ];
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center p-6 pointer-events-none">
-            <div className="pointer-events-auto relative">
-                <motion.div
-                    className="bg-white/90 backdrop-blur-xl border border-gray-200 shadow-xl rounded-xl overflow-hidden min-w-[220px]"
-                    initial={false}
-                    animate={isOpen ? "open" : "closed"}
-                >
-                    {/* Toggle Header */}
-                    <div
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="flex justify-between items-center px-5 py-4 cursor-pointer hover:bg-gray-50 transition-colors"
+        <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-6 pointer-events-none">
+            <motion.nav
+                className={`pointer-events-auto flex items-center gap-1 rounded-full p-2 border transition-all duration-500 bg-white/80 backdrop-blur-md ${isScrolled ? 'shadow-lg border-gray-200' : 'shadow-sm border-transparent'}`}
+                layout
+            >
+                {links.map((link) => (
+                    <NavLink
+                        key={link.path}
+                        to={link.path}
+                        className={({ isActive }) => `
+                        relative px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300
+                        ${isActive ? 'text-black' : 'text-gray-500 hover:text-black hover:bg-gray-100/50'}
+                    `}
                     >
-                        <div className="flex flex-col">
-                            <span className="font-bold text-sm tracking-wide text-gray-900">HEMACHANDIRAN</span>
-                            <span className="text-[10px] text-gray-400 font-mono tracking-wider">FULL STACK DEV</span>
-                        </div>
-
-                        <motion.div
-                            variants={{ open: { rotate: 180 }, closed: { rotate: 0 } }}
-                            className="text-gray-400"
-                        >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M6 9l6 6 6-6" />
-                            </svg>
-                        </motion.div>
-                    </div>
-
-                    {/* Dropdown Links */}
-                    <motion.div
-                        variants={{
-                            open: { height: "auto", opacity: 1 },
-                            closed: { height: 0, opacity: 0 }
-                        }}
-                        transition={{ duration: 0.2 }}
-                        className="border-t border-gray-100"
-                    >
-                        <div className="flex flex-col p-2 gap-1">
-                            {menuItems.map((item) => (
-                                <NavLink
-                                    key={item.name}
-                                    to={item.path}
-                                    onClick={() => setIsOpen(false)}
-                                    className={({ isActive }: { isActive: boolean }) => `
-                                    block px-4 py-3 rounded-lg text-sm font-medium transition-colors
-                                    ${isActive
-                                            ? 'bg-gray-100 text-black'
-                                            : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}
-                                `}
-                                >
-                                    {item.name}
-                                </NavLink>
-                            ))}
-                        </div>
-                    </motion.div>
-                </motion.div>
-            </div>
-        </nav>
+                        {link.name}
+                        {location.pathname === link.path && (
+                            <motion.div
+                                layoutId="activeTab"
+                                className="absolute inset-0 bg-gray-100 rounded-full -z-10 mix-blend-multiply"
+                                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                            />
+                        )}
+                    </NavLink>
+                ))}
+            </motion.nav>
+        </div>
     );
 }
