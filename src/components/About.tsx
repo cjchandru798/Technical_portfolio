@@ -2,53 +2,59 @@ import { motion } from 'framer-motion';
 
 export default function About() {
     return (
-        <motion.section
-            className="section-container pt-32"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+        <motion.div
+            className="page-transition"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
         >
-            <div className="max-w-4xl mx-auto">
-                <div className="border-l-2 border-gray-900 pl-6 mb-12">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-2">About Me</h1>
-                    <p className="text-gray-500 font-mono text-sm">Last Updated: Dec 2025</p>
+            <div className="grid md:grid-cols-2 gap-16 items-start">
+
+                {/* Bio */}
+                <div>
+                    <h1 className="text-4xl font-bold mb-6">
+                        <span className="text-purple-600">class</span> <span className="text-yellow-600">Developer</span> <span className="text-gray-400">extends</span> <span className="text-blue-600">Human</span>
+                    </h1>
+
+                    <div className="space-y-6 text-lg text-gray-600 leading-relaxed border-l-4 border-gray-100 pl-6">
+                        <p>
+                            I'm Hemachandiran, a creator at heart and an engineer by trade.
+                            My passion lies in bridging the gap between <span className="text-purple-500 font-medium">logic</span> and <span className="text-pink-500 font-medium">creativity</span>.
+                        </p>
+                        <p>
+                            With a strong foundation in Computer Science, I specialize in building systems that are not only robust but also intuitive.
+                            I believe great software should feel invisible.
+                        </p>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="flex gap-12 mt-12">
+                        <div>
+                            <div className="text-4xl font-bold text-slate-800">04+</div>
+                            <div className="text-sm font-mono text-gray-400 mt-1">YEARS CODE</div>
+                        </div>
+                        <div>
+                            <div className="text-4xl font-bold text-slate-800">10+</div>
+                            <div className="text-sm font-mono text-gray-400 mt-1">PROJECTS</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-12">
-                    {/* Bio */}
-                    <div className="md:col-span-2 space-y-6 text-gray-700 leading-relaxed">
-                        <p>
-                            I am a <strong>Full Stack Developer</strong> with a structured approach to solving problems.
-                            I don't just write code; I architect solutions that are scalable, maintainable, and efficient.
-                        </p>
-                        <p>
-                            Currently focusing on modern web technologies like React, Node.js, and Cloud Infrastructure.
-                            My workflow is data-driven and user-centric, ensuring that every pixel serves a purpose.
-                        </p>
-
-                        <div className="grid grid-cols-2 gap-4 mt-8">
-                            <div className="bg-gray-50 p-4 border border-gray-100 rounded-lg">
-                                <h3 className="font-bold text-2xl text-gray-900">4+</h3>
-                                <p className="text-xs text-gray-500 uppercase tracking-wide">Years Experience</p>
-                            </div>
-                            <div className="bg-gray-50 p-4 border border-gray-100 rounded-lg">
-                                <h3 className="font-bold text-2xl text-gray-900">10+</h3>
-                                <p className="text-xs text-gray-500 uppercase tracking-wide">Shipments</p>
+                {/* Photo Card */}
+                <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl transform rotate-6 group-hover:rotate-3 transition-transform opacity-20"></div>
+                    <div className="relative bg-white p-2 rounded-2xl border border-gray-100 shadow-xl overflow-hidden aspect-[4/5]">
+                        <div className="w-full h-full bg-slate-100 rounded-xl flex items-center justify-center text-slate-300">
+                            {/* Photo Placeholder */}
+                            <div className="text-center">
+                                <span className="block text-5xl mb-2">📸</span>
+                                <span className="font-mono text-sm">Image.jpg</span>
                             </div>
                         </div>
                     </div>
-
-                    {/* Photo Placeholder */}
-                    <div className="relative">
-                        <div className="aspect-[3/4] bg-gray-900 rounded-lg relative overflow-hidden flex items-center justify-center text-gray-500 border border-gray-800">
-                            <div className="text-center p-4">
-                                <div className="text-4xl mb-4">📷</div>
-                                <span className="text-xs font-mono uppercase tracking-widest text-gray-400">Photo Slot</span>
-                            </div>
-                        </div>
-                        <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-gray-200 -z-10 rounded-lg"></div>
-                    </div>
                 </div>
+
             </div>
-        </motion.section>
+        </motion.div>
     );
 }

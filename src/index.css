@@ -1,7 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-grid-line: rgba(0, 0, 0, 0.04);
+  --color-syntax-keyword: #c678dd;
+  /* Purple */
+  --color-syntax-function: #61afef;
+  /* Blue */
+  --color-syntax-string: #98c379;
+  /* Green */
+  --color-syntax-comment: #7f848e;
+  /* Gray */
+  --color-syntax-bg: #fafafa;
 }
 
 html {
@@ -9,30 +17,25 @@ html {
 }
 
 body {
-  @apply bg-white text-gray-900 font-sans;
-  /* Engineering Grid Background */
-  background-size: 40px 40px;
+  @apply bg-white text-gray-900 font-sans overflow-x-hidden;
   background-image:
-    linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 
 .mono {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* Utilities */
-.btn-primary {
-  @apply bg-black text-white px-6 py-3 rounded-md font-medium text-sm transition-transform active:scale-95 hover:bg-gray-800;
-}
-
-.section-container {
-  @apply max-w-5xl mx-auto px-6 py-24 min-h-screen;
+/* Page Transition Wrapper */
+.page-transition {
+  @apply min-h-screen pt-24 px-6 max-w-6xl mx-auto;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -40,9 +43,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e5e7eb;
+  background: #cbd5e1;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d1d5db;
+  background: #94a3b8;
 }
