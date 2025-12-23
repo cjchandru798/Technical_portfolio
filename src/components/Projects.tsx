@@ -6,6 +6,39 @@ import { SiReact, SiSpringboot, SiNodedotjs } from 'react-icons/si';
 const projects = [
     {
         id: 1,
+        fileName: 'FundraisingPlatform.java',
+        title: 'Fundraising Web Application',
+        desc: 'Donation & fundraising platform.',
+        fullDesc: 'A full-stack fundraising web application built for She Can Foundation to manage campaigns, donors, and contributions. Includes secure backend APIs, donation tracking, and campaign management features.',
+        code: 'https://github.com/cjchandru798/fundraise-backend.git',
+        tags: ['Java', 'Spring Boot', 'MySQL'],
+        langColor: 'text-red-500',
+        icon: SiSpringboot
+    },
+    {
+        id: 2,
+        fileName: 'TicketBookingSystem.java',
+        title: 'Ticket Booking Application',
+        desc: 'Microservices-based ticket booking system.',
+        fullDesc: 'A scalable ticket booking application developed using microservices architecture. Integrated with Eureka Server for service discovery and API Gateway for centralized routing and security.',
+        code: 'https://github.com/joshuaimman-17/Ticket-Booking-App.git',
+        tags: ['Java', 'Spring Boot', 'Eureka', 'API Gateway'],
+        langColor: 'text-red-500',
+        icon: SiSpringboot
+    },
+    {
+        id: 3,
+        fileName: 'TicketBookingSystem.java',
+        title: 'Ticket Booking Application',
+        desc: 'Microservices-based ticket booking system.',
+        fullDesc: 'A scalable ticket booking application developed using microservices architecture. Integrated with Eureka Server for service discovery and API Gateway for centralized routing and security.',
+        code: 'https://github.com/joshuaimman-17/Ticket-Booking-App.git',
+        tags: ['Java', 'Spring Boot', 'Eureka', 'API Gateway'],
+        langColor: 'text-red-500',
+        icon: SiSpringboot
+    },
+    {
+        id: 4,
         fileName: 'SalonBooking.java',
         title: 'Salon Management System',
         desc: 'Full-stack booking platform.',
@@ -16,7 +49,7 @@ const projects = [
         icon: SiSpringboot
     },
     {
-        id: 2,
+        id: 5,
         fileName: 'Portfolio.tsx',
         title: 'Personal Portfolio',
         desc: 'Interactive personal showcase.',
@@ -27,7 +60,7 @@ const projects = [
         icon: SiReact
     },
     {
-        id: 3,
+        id: 6,
         fileName: 'MailerService.js',
         title: 'Gmail Wrapper Service',
         desc: 'Node.js service for emails.',
@@ -38,7 +71,7 @@ const projects = [
         icon: SiNodedotjs
     },
     {
-        id: 4,
+        id: 7,
         fileName: 'Scheduler.cs',
         title: 'Appointment Tool',
         desc: 'Lightweight scheduling tool.',
@@ -47,7 +80,10 @@ const projects = [
         tags: ['C#', '.NET', 'SQL'],
         langColor: 'text-purple-500',
         icon: FaFolder
-    }
+    },
+
+
+
 ];
 
 export default function Projects() {
