@@ -1,12 +1,42 @@
 
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 import { FiDownload, FiArrowRight } from 'react-icons/fi';
 import Resume from '../assets/resume.pdf';
+import ProfileImage from '../assets/selfimage.jpg';
 
 export default function Hero() {
+    // Mouse tracking for 3D tilt
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseXSpring = useSpring(x);
+    const mouseYSpring = useSpring(y);
+
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const xPct = mouseX / width - 0.5;
+        const yPct = mouseY / height - 0.5;
+
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
     return (
         <motion.section
             className="min-h-screen flex items-center justify-center pt-20 pb-10 px-6 overflow-hidden"
@@ -29,9 +59,9 @@ export default function Hero() {
                             <span className="ml-2 font-mono text-xs text-gray-400">~/hema/portfolio</span>
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4">
-                            <span className="text-slate-800">Hello, I'm</span> <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">
+                        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-slate-900">
+                            Hello, I'm <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
                                 Hemachandiran.
                             </span>
                         </h1>
@@ -85,7 +115,7 @@ export default function Hero() {
                         <a
                             href={Resume}
                             download="Hemachandiran_Resume.pdf"
-                            className="px-8 py-3.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-600 border border-blue-100 rounded-xl font-bold hover:shadow-md transition-all flex items-center justify-center gap-2 group"
+                            className="px-8 py-3.5 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-600 border border-blue-100 rounded-xl font-bold hover:shadow-md transition-all flex items-center justify-center gap-2 group"
                         >
                             <FiDownload className="group-hover:translate-y-0.5 transition-transform" />
                             Resume
@@ -99,51 +129,111 @@ export default function Hero() {
                         <a href="https://linkedin.com/in/hemachandiran-a-242527300" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors transform hover:scale-110">
                             <FaLinkedin size={28} />
                         </a>
-                        <a href="https://wa.me/9962098084" className="hover:text-pink-600 transition-colors transform hover:scale-110">
+                        <a href="https://wa.me/9962098084" target="_blank" rel="noopener noreferrer" className="hover:text-green-600 transition-colors transform hover:scale-110">
                             <FaWhatsapp size={28} />
                         </a>
                     </div>
                 </div>
 
-                {/* Right Photo */}
+                {/* Right Photo Area: Holographic Projector */}
                 <motion.div
-                    className="order-1 md:order-2 flex justify-center md:justify-end"
+                    className="order-1 md:order-2 flex flex-col items-center justify-center relative"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className="relative w-72 h-72 md:w-96 md:h-96">
-                        {/* Abstract Shapes behind */}
-                        <div className="absolute top-0 right-0 w-full h-full bg-blue-100 rounded-full blur-3xl opacity-50 animate-pulse"></div>
-                        <div className="absolute bottom-0 left-0 w-3/4 h-3/4 bg-purple-100 rounded-full blur-3xl opacity-50"></div>
+                    {/* Perspective Container */}
+                    <div
+                        className="relative group cursor-pointer"
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
+                        style={{ perspective: "1000px" }}
+                    >
+                        {/* Light Beam Effect */}
+                        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-[400px] bg-gradient-to-t from-blue-400/20 via-blue-400/5 to-transparent clip-path-beam opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
-                        {/* Image Container */}
-                        <div className="relative w-full h-full rounded-2xl overflow-hidden border-2 border-white shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
-                            {/* Placeholder for Photo */}
-                            <div className="w-full h-full bg-slate-200 flex items-center justify-center flex-col text-slate-400">
-                                <span className="text-4xl mb-2">👋</span>
-                                <span className="font-mono text-sm">Add Photo Here</span>
-                            </div>
+                        {/* Hologram Display */}
+                        <motion.div
+                            style={{
+                                rotateX,
+                                rotateY,
+                                transformStyle: "preserve-3d"
+                            }}
+                            className="relative w-72 h-72 md:w-96 md:h-96"
+                        >
+                            {/* Floating Motion */}
+                            <motion.div
+                                animate={{ y: [0, -10, 0] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                className="w-full h-full relative"
+                            >
+                                {/* The Image with Holographic overlays */}
+                                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-cyan-400/30 shadow-[0_0_20px_rgba(34,211,238,0.2)]">
+                                    {/* Scanlines Overlay */}
+                                    <div className="absolute inset-0 z-20 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_2px,3px_100%]"></div>
+
+                                    {/* Digital Grid */}
+                                    <div className="absolute inset-0 z-20 opacity-10 pointer-events-none bg-[radial-gradient(#22d3ee_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+                                    {/* flickering effect */}
+                                    <motion.div
+                                        className="absolute inset-0 z-20 bg-cyan-400/5 pointer-events-none"
+                                        animate={{ opacity: [0, 0.1, 0] }}
+                                        transition={{ duration: 0.1, repeat: Infinity, repeatDelay: 3 }}
+                                    ></motion.div>
+
+                                    <img
+                                        src={ProfileImage}
+                                        alt="Hemachandiran"
+                                        className="w-full h-full object-cover filter brightness-110 contrast-110 hue-rotate-[5deg]"
+                                    />
+
+                                    {/* Technical Readouts */}
+                                    <div className="absolute top-4 left-4 z-30 font-mono text-[10px] text-cyan-400 opacity-70">
+                                        <p>SYS_STATUS: ACTIVE</p>
+                                        <p>UID: 0xHEMA_24</p>
+                                    </div>
+                                    <div className="absolute bottom-4 right-4 z-30 font-mono text-[10px] text-cyan-400 opacity-70 text-right">
+                                        <p>LOC: 13.0827° N</p>
+                                        <p>RAD: 80.2707° E</p>
+                                    </div>
+
+                                    {/* Active Scanning Line */}
+                                    <motion.div
+                                        className="absolute top-0 left-0 w-full h-0.5 bg-cyan-400/50 shadow-[0_0_10px_#22d3ee] z-40"
+                                        animate={{ top: ["0%", "100%", "0%"] }}
+                                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                    ></motion.div>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    </div>
+
+                    {/* Projector Base */}
+                    <div className="mt-8 relative hidden md:block">
+                        <div className="w-24 h-4 bg-slate-200 rounded-lg shadow-inner relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-100 to-transparent animate-shimmer"></div>
+                            {/* Lens */}
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-cyan-400/50 rounded-full blur-[2px]"></div>
                         </div>
-
-                        {/* Floating Tech Badges */}
-                        <motion.div
-                            animate={{ y: [0, -10, 0] }}
-                            transition={{ duration: 3, repeat: Infinity }}
-                            className="absolute -right-4 top-10 bg-white p-3 rounded-lg shadow-lg border border-gray-100"
-                        >
-                            <span className="text-2xl">⚛️</span>
-                        </motion.div>
-                        <motion.div
-                            animate={{ y: [0, 10, 0] }}
-                            transition={{ duration: 4, repeat: Infinity }}
-                            className="absolute -left-4 bottom-10 bg-white p-3 rounded-lg shadow-lg border border-gray-100"
-                        >
-                            <span className="text-2xl">🚀</span>
-                        </motion.div>
+                        <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-12 h-1 bg-cyan-400 shadow-[0_0_15px_#22d3ee] animate-pulse rounded-full"></div>
                     </div>
                 </motion.div>
             </div>
+
+            {/* Global style for beam shape */}
+            <style>{`
+                .clip-path-beam {
+                    clip-path: polygon(40% 100%, 60% 100%, 100% 0, 0 0);
+                }
+                @keyframes shimmer {
+                    from { transform: translateX(-100%); }
+                    to { transform: translateX(100%); }
+                }
+                .animate-shimmer {
+                    animation: shimmer 2s infinite;
+                }
+            `}</style>
         </motion.section>
     );
 }
