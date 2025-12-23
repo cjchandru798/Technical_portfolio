@@ -1,7 +1,10 @@
+
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import { FiDownload, FiArrowRight } from 'react-icons/fi';
+import Resume from '../assets/resume.pdf';
 
 export default function Hero() {
     return (
@@ -58,25 +61,47 @@ export default function Hero() {
                     </motion.p>
 
                     <motion.div
-                        className="flex flex-wrap gap-4"
+                        className="flex flex-col sm:flex-row gap-4"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
                     >
-                        <Link to="/projects" className="px-8 py-3 bg-slate-900 text-white rounded-lg font-medium hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200">
+                        <Link
+                            to="/projects"
+                            className="px-8 py-3.5 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 transition-all shadow-lg hover:shadow-blue-200 flex items-center justify-center gap-2 group"
+                        >
                             View Projects
+                            <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        <Link to="/contact" className="px-8 py-3 bg-white border border-gray-200 text-slate-900 rounded-lg font-medium hover:border-purple-300 hover:text-purple-600 transition-colors">
+
+                        <Link
+                            to="/contact"
+                            className="px-8 py-3.5 bg-white border-2 border-slate-100 text-slate-900 rounded-xl font-bold hover:border-slate-900 hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                        >
+                            <FaEnvelope />
                             Contact Me
                         </Link>
+
+                        <a
+                            href={Resume}
+                            download="Hemachandiran_Resume.pdf"
+                            className="px-8 py-3.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-600 border border-blue-100 rounded-xl font-bold hover:shadow-md transition-all flex items-center justify-center gap-2 group"
+                        >
+                            <FiDownload className="group-hover:translate-y-0.5 transition-transform" />
+                            Resume
+                        </a>
                     </motion.div>
 
-                    <div className="flex gap-4 pt-4 text-gray-400">
-                        {[FaGithub, FaLinkedin, FaInstagram].map((Icon, i) => (
-                            <a key={i} href="#" className="hover:text-slate-900 transition-colors transform hover:scale-110">
-                                <Icon size={24} />
-                            </a>
-                        ))}
+                    <div className="flex gap-6 pt-4 text-gray-400">
+                        <a href="https://github.com/cjchandru798" target="_blank" rel="noopener noreferrer" className="hover:text-slate-900 transition-colors transform hover:scale-110">
+                            <FaGithub size={28} />
+                        </a>
+                        <a href="https://linkedin.com/in/hemachandiran-a-242527300" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors transform hover:scale-110">
+                            <FaLinkedin size={28} />
+                        </a>
+                        <a href="https://wa.me/9962098084" className="hover:text-pink-600 transition-colors transform hover:scale-110">
+                            <FaWhatsapp size={28} />
+                        </a>
                     </div>
                 </div>
 

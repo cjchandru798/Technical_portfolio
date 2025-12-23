@@ -27,7 +27,7 @@ const journeyData = [
         icon: "🎓"
     },
     {
-        year: "2020 – 2022",
+        year: "2022",
         title: "Higher Secondary Education (HSC)",
         company: "Sri S.B. Vijaya Reddiar Matric Hr. Sec. School",
         description: "Specialized in Computer Science & Mathematics. Scored 73%.",
