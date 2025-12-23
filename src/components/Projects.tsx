@@ -1,39 +1,52 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaCaretRight, FaCode } from 'react-icons/fa';
+import { FaGithub, FaFolder, FaCircle } from 'react-icons/fa';
+import { SiReact, SiSpringboot, SiNodedotjs } from 'react-icons/si';
 
 const projects = [
     {
         id: 1,
-        title: 'Salon Booking System',
-        desc: 'Platform for managing salon appointments.',
-        fullDesc: 'A comprehensive solution for beauty salons to manage staff schedules, customer bookings, and service catalogs. Features include automated email reminders, dynamic pricing, and an admin dashboard for real-time analytics.',
+        fileName: 'SalonBooking.java',
+        title: 'Salon Management System',
+        desc: 'Full-stack booking platform.',
+        fullDesc: 'A comprehensive solution for beauty salons to manage staff schedules, customer bookings, and service catalogs. Features include automated email reminders and dynamic pricing.',
         code: 'https://github.com/cjchandru798/Salon-Appointment-Booking.git',
-        tags: ['Java', 'Spring Boot', 'MySQL']
+        tags: ['Java', 'Spring', 'MySQL'],
+        langColor: 'text-red-500',
+        icon: SiSpringboot
     },
     {
         id: 2,
+        fileName: 'Portfolio.tsx',
         title: 'Personal Portfolio',
         desc: 'Interactive personal showcase.',
-        fullDesc: 'Built to demonstrate advanced frontend techniques including layout animations, page transitions, and responsive design patterns. The codebase is structured for easy scalability and maintenance.',
+        fullDesc: 'Built to demonstrate advanced frontend techniques including layout animations, page transitions, and responsive design patterns.',
         code: 'https://github.com/cjchandru798/Portfolio_website.git',
-        tags: ['React', 'Tailwind', 'Framer']
+        tags: ['React', 'Framer', 'Tailwind'],
+        langColor: 'text-cyan-400',
+        icon: SiReact
     },
     {
         id: 3,
-        title: 'Gmail Service Wrapper',
-        desc: 'Node.js service for reliable email delivery.',
-        fullDesc: 'A robust microservice that wraps SMTP interactions, providing a cleaner API for other applications to send transactional emails. Includes retry mechanisms and error logging.',
+        fileName: 'MailerService.js',
+        title: 'Gmail Wrapper Service',
+        desc: 'Node.js service for emails.',
+        fullDesc: 'A robust microservice that wraps SMTP interactions, providing a cleaner API for other applications to send transactional emails.',
         code: 'https://github.com/cjchandru798/G-Mail-Sending-App.git',
-        tags: ['Node.js', 'Express', 'SMTP']
+        tags: ['Node', 'Express', 'SMTP'],
+        langColor: 'text-green-500',
+        icon: SiNodedotjs
     },
     {
         id: 4,
-        title: 'Appointment Scheduler',
-        desc: 'Lightweight tool for small businesses.',
-        fullDesc: 'Designed for strict simplicity, this tool allows small business owners to define available slots and lets customers book them without user account creation.',
+        fileName: 'Scheduler.cs',
+        title: 'Appointment Tool',
+        desc: 'Lightweight scheduling tool.',
+        fullDesc: 'Designed for strict simplicity, this tool allows small business owners to define available slots and lets customers book them quickly.',
         code: 'https://github.com/cjchandru798/simple-appointment-booking.git',
-        tags: ['Node.js', '.NET']
+        tags: ['C#', '.NET', 'SQL'],
+        langColor: 'text-purple-500',
+        icon: FaFolder
     }
 ];
 
@@ -42,86 +55,105 @@ export default function Projects() {
 
     return (
         <motion.div
-            className="page-transition min-h-screen pt-32 pb-20"
+            className="page-transition min-h-screen pt-32 pb-24"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
         >
             <div className="mb-12">
-                <h1 className="text-4xl font-bold mb-4">Selected Works</h1>
-                <p className="text-gray-500 font-mono text-sm">// Explore recent development projects</p>
+                <h1 className="text-4xl font-bold mb-4">
+                    <span className="text-purple-500">const</span> <span className="text-blue-600">works</span> <span className="text-gray-400">=</span> <span className="text-yellow-500">[ ]</span>;
+                </h1>
+                <p className="text-gray-500 font-mono text-sm ml-1">
+                // Click a file to inspect full details
+                </p>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                 {projects.map((proj) => {
                     const isSelected = selectedId === proj.id;
+                    const LangIcon = proj.icon;
 
                     return (
                         <motion.div
                             key={proj.id}
                             layout
                             onClick={() => setSelectedId(isSelected ? null : proj.id)}
+                            whileHover={{ y: -4, transition: { duration: 0.2 } }}
                             className={`
-                            relative overflow-hidden rounded-xl border cursor-pointer transition-all duration-300
-                            ${isSelected ? 'bg-black text-white border-black ring-4 ring-gray-100 shadow-xl' : 'bg-white text-gray-900 border-gray-200 hover:border-gray-400'}
+                            relative bg-white rounded-2xl overflow-hidden cursor-pointer border transition-all duration-300
+                            ${isSelected
+                                    ? 'border-blue-500 shadow-xl ring-1 ring-blue-100 col-span-1 md:col-span-2'
+                                    : 'border-gray-100 shadow-sm hover:shadow-lg hover:border-gray-200'
+                                }
                         `}
                         >
-                            <motion.div layout className="p-6 md:p-8 flex justify-between items-center">
-                                <div className="flex flex-col md:flex-row md:items-center gap-4">
-                                    <span className={`font-mono text-sm ${isSelected ? 'text-gray-500' : 'text-gray-400'}`}>0{proj.id}</span>
-                                    <h3 className="text-2xl font-bold">{proj.title}</h3>
-                                    {!isSelected && <p className="text-gray-500 md:ml-4 text-sm hidden md:block">{proj.desc}</p>}
+                            {/* Header Bar */}
+                            <div className="bg-gray-50 border-b border-gray-100 px-6 py-3 flex justify-between items-center">
+                                <div className="flex items-center gap-3">
+                                    <LangIcon className={`${proj.langColor} text-lg`} />
+                                    <span className="font-mono text-sm text-gray-600 font-medium">{proj.fileName}</span>
+                                </div>
+                                <div className="flex gap-1.5">
+                                    <FaCircle className="text-red-400 text-[10px]" />
+                                    <FaCircle className="text-yellow-400 text-[10px]" />
+                                    <FaCircle className="text-green-400 text-[10px]" />
+                                </div>
+                            </div>
+
+                            <motion.div layout className="p-8">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 className="text-2xl font-bold text-gray-900 mb-2">{proj.title}</h3>
+                                        <AnimatePresence mode='wait'>
+                                            {!isSelected && (
+                                                <motion.p
+                                                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                                                    className="text-gray-500"
+                                                >
+                                                    {proj.desc}
+                                                </motion.p>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
                                 </div>
 
-                                <motion.div
-                                    animate={{ rotate: isSelected ? 90 : 0 }}
-                                    className={isSelected ? 'text-white' : 'text-gray-400'}
-                                >
-                                    <FaCaretRight size={20} />
-                                </motion.div>
-                            </motion.div>
-
-                            <AnimatePresence>
-                                {isSelected && (
-                                    <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: 'auto', opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        className="px-8 pb-8"
-                                    >
-                                        <div className="pt-6 border-t border-gray-800 grid md:grid-cols-3 gap-12">
-                                            <div className="md:col-span-2">
-                                                <h4 className="font-mono text-xs text-gray-500 uppercase tracking-widest mb-4">Description</h4>
-                                                <p className="text-gray-300 leading-relaxed text-lg mb-8">
+                                <AnimatePresence>
+                                    {isSelected && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: 'auto' }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                        >
+                                            <div className="pt-4 border-t border-gray-100 mt-4">
+                                                <p className="text-gray-600 leading-relaxed mb-6 text-lg">
                                                     {proj.fullDesc}
                                                 </p>
 
-                                                <a
-                                                    href={proj.code}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-lg font-bold hover:bg-gray-200 transition-colors"
-                                                >
-                                                    <FaGithub /> View Source
-                                                </a>
-                                            </div>
+                                                <div className="flex flex-wrap items-center justify-between gap-6">
+                                                    <div className="flex gap-2">
+                                                        {proj.tags.map(tag => (
+                                                            <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-sm font-medium">
+                                                                {tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
 
-                                            <div>
-                                                <h4 className="font-mono text-xs text-gray-500 uppercase tracking-widest mb-4">Tech Stack</h4>
-                                                <ul className="space-y-3">
-                                                    {proj.tags.map(tag => (
-                                                        <li key={tag} className="flex items-center gap-3 text-gray-300">
-                                                            <FaCode className="text-gray-600" />
-                                                            {tag}
-                                                        </li>
-                                                    ))}
-                                                </ul>
+                                                    <a
+                                                        href={proj.code}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
+                                                        className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-xl font-bold hover:bg-gray-800 transition-colors shadow-lg shadow-gray-200"
+                                                    >
+                                                        <FaGithub /> Git Checkout
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </motion.div>
                         </motion.div>
                     );
                 })}

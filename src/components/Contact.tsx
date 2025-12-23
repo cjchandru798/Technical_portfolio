@@ -31,8 +31,8 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-gray-900">Email</h3>
-                                <a href="mailto:hemachandiran.dev@example.com" className="text-gray-500 hover:text-black hover:underline transition-colors">
-                                    hemachandiran.dev@example.com
+                                <a href="mailto:hemachandiran5002@gmail.com" className="text-gray-500 hover:text-black hover:underline transition-colors">
+                                    hemachandiran5002@gmail.com
                                 </a>
                             </div>
                         </div>
